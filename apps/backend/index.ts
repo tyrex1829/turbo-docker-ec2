@@ -18,7 +18,7 @@ app.get("/users", (req, res) => {
   prisma.user
     .findMany()
     .then((users) => {
-      res.json({ users });
+      res.json(users);
     })
     .catch((err) => {
       res.status(500).json({ error: err.message });
