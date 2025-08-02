@@ -23,3 +23,9 @@ jobs:
           file: ./docker/Dockerfile.backend
           push: true
           tags: tyrex19/turbo-docker-ec2-backend:${{ github.sha }}
+
+      - name: Deploy to the VM
+        run: |
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" &> ~/ssh_key
+          chmod 700 /home/runner/ssh_key
+          ssh -o StrictHostKeyChecking=no -i ~/ssh_key root@64.227.169.180 -t "docker stop turbo-docker-ec2-backend && docker run --name turbo-docker-ec2-backend -d -p 8080:8080 tyrex19/turbo-docker-ec2-backend:${{ github.sha }}"
