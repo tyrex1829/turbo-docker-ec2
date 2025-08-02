@@ -16,7 +16,7 @@ RUN bun install
 
 RUN bun run generate:db
 
-RUN DATABASE_URL=${DATABASE_URL} bun run build
+RUN DATABASE_URL=${DATABASE_URL} bunx turbo build --filter=web...
 
 EXPOSE 3000
 
